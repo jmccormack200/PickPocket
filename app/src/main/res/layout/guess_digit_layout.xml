@@ -10,7 +10,7 @@
         style="@style/GuessText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toStartOf="@id/guess_digit_two"
+        app:layout_constraintEnd_toStartOf="@+id/guess_digit_two"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="1"/>
@@ -21,7 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="@+id/guess_digit_one"
-        app:layout_constraintEnd_toStartOf="@id/guess_digit_three"
+        app:layout_constraintEnd_toStartOf="@+id/guess_digit_three"
         app:layout_constraintStart_toEndOf="@id/guess_digit_one"
         app:layout_constraintTop_toTopOf="@+id/guess_digit_one"
         tools:text="1"/>
@@ -32,7 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="@+id/guess_digit_one"
-        app:layout_constraintEnd_toStartOf="@id/guess_digit_four"
+        app:layout_constraintEnd_toStartOf="@+id/guess_digit_four"
         app:layout_constraintStart_toEndOf="@id/guess_digit_two"
         app:layout_constraintTop_toTopOf="@+id/guess_digit_one"
         tools:text="1"/>
