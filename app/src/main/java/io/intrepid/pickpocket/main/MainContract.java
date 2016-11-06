@@ -10,6 +10,7 @@ public interface MainContract {
     interface Presenter{
         void setView(MainContract.View view);
         void buttonClicked(String s);
+        void programSwitchToggled(boolean checked);
     }
 
 }

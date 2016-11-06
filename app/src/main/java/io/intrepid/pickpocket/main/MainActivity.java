@@ -11,6 +11,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnTouch;
 import io.intrepid.pickpocket.R;
 
 import static android.view.View.INVISIBLE;
@@ -57,5 +58,11 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     public void onDigitClicked(View view){
         Button button = (Button) view;
         presenter.buttonClicked(button.getText().toString());
+    }
+
+    @OnTouch(R.id.programming_mode_switch)
+    public boolean onTouch(){
+        presenter.programSwitchToggled(!programmingModeSwitch.isChecked());
+        return false;
     }
 }
