@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.AppCompatCheckedTextView
+        android:id="@+id/lock_icon"
+        android:layout_width="137dp"
+        android:layout_height="115dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="48dp"
+        android:background="@drawable/toggle_lock"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"/>
+
+    <Button
+        android:id="@+id/button_one"
+        style="@style/RoundButton"
+        android:clickable="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="64dp"
+        android:text="@string/_1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lock_icon"/>
+
+    <Button
+        android:id="@+id/button_four"
+        style="@style/RoundButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/_4"
+        app:layout_constraintLeft_toLeftOf="@+id/button_one"
+        app:layout_constraintRight_toRightOf="@+id/button_one"
+        app:layout_constraintTop_toBottomOf="@+id/button_one"/>
+
+    <Button
+        android:id="@+id/button_six"
+        style="@style/RoundButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/_6"
+        app:layout_constraintBottom_toBottomOf="@+id/button_four"
+        app:layout_constraintLeft_toLeftOf="@+id/button_three"
+        app:layout_constraintRight_toRightOf="@+id/button_three"
+        app:layout_constraintTop_toTopOf="@+id/button_four"
+        app:layout_constraintVertical_bias="1.0"/>
+
+    <Button
+        android:id="@+id/button_five"
+        style="@style/RoundButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/_5"
+        app:layout_constraintBottom_toBottomOf="@+id/button_four"
+        app:layout_constraintLeft_toLeftOf="@+id/button_two"
+        app:layout_constraintRight_toRightOf="@+id/button_two"
+        app:layout_constraintTop_toTopOf="@+id/button_four"/>
+
+    <Button
+        android:id="@+id/button_three"
+        style="@style/RoundButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="32dp"
+        android:text="@string/_3"
+        app:layout_constraintBottom_toBottomOf="@+id/button_two"
+        app:layout_constraintLeft_toRightOf="@+id/button_two"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/button_two"/>
+
+    <Button
+        android:id="@+id/button_two"
+        style="@style/RoundButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:text="@string/_2"
+        app:layout_constraintBottom_toBottomOf="@+id/button_one"
+        app:layout_constraintLeft_toRightOf="@+id/button_one"
+        app:layout_constraintTop_toTopOf="@+id/button_one"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        android:text="@string/check"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteX="8dp"/>
+
+    <TextView
+        android:id="@+id/programming_mode_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="@+id/programming_mode_switch"
+        app:layout_constraintEnd_toEndOf="@+id/programming_mode_switch"
+        app:layout_constraintBottom_toTopOf="@+id/programming_mode_switch"
+        android:fontFamily="monospace"
+        android:text="@string/programming_mode"
+        tools:visibility="visible"/>
+
+    <Switch
+        android:id="@+id/programming_mode_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_five"
+        tools:visibility="visible"/>
+
+</android.support.constraint.ConstraintLayout>
