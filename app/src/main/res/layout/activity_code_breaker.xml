@@ -2,7 +2,6 @@
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -55,8 +54,8 @@
     <include
         android:id="@+id/guess_layout"
         layout="@layout/guess_digit_layout"
-        android:layout_height="48dp"
         android:layout_width="0dp"
+        android:layout_height="48dp"
         android:layout_marginTop="16dp"
         app:layout_constraintLeft_toLeftOf="@id/answer_boxes"
         app:layout_constraintRight_toRightOf="@id/answer_boxes"
@@ -76,7 +75,7 @@
         app:layout_constraintTop_toBottomOf="@+id/guess_layout"/>
 
     <Button
-        android:id="@+id/checkAnswer"
+        android:id="@+id/check_answer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorAccent"
