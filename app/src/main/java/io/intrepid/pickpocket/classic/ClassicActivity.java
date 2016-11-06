@@ -1,5 +1,7 @@
 package io.intrepid.pickpocket.classic;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -30,14 +32,20 @@ public class ClassicActivity extends AppCompatActivity implements ClassicContrac
 
     private ClassicContract.Presenter presenter;
 
+    public static Intent makeIntent(Context context){
+        return new Intent(context, ClassicActivity.class);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_classic);
         ButterKnife.bind(this);
 
         presenter = new ClassicPresenter();
         presenter.setView(this);
+        setTitle(R.string.classic);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override

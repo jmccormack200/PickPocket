@@ -8,13 +8,17 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
-        <activity android:name=".classic.ClassicActivity" >
+        <activity android:name=".launch.LaunchActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".classic.ClassicActivity"
+            android:parentActivityName=".launch.LaunchActivity"/>
+        <activity android:name=".codebreaker.CodeBreakerActivity"
+                  android:parentActivityName=".launch.LaunchActivity"/>
     </application>
 
 </manifest>

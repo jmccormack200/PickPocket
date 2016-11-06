@@ -8,4 +8,9 @@
     <string name="_4">4</string>
     <string name="check">CHECK</string>
     <string name="programming_mode">PROGRAMMING MODE</string>
+    <string name="welcome_to_pick_pocket_n_please_choose_a_mode_below">Welcome To Pick Pocket \n Please Choose a Mode Below</string>
+    <string name="classic">Classic</string>
+    <string name="code_breaker">Code Breaker</string>
+    <string name="online_mode">Online</string>
+    <string name="check_answer">Check Answer</string>
 </resources>
