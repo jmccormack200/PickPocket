@@ -1,4 +1,4 @@
-package io.intrepid.pickpocket.main;
+package io.intrepid.pickpocket.classic;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -11,16 +11,16 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
-public class MainPresenterTest {
+public class ClassicPresenterTest {
 
     @Mock
-    MainContract.View mockView;
+    ClassicContract.View mockView;
 
-    MainPresenter presenter;
+    ClassicPresenter presenter;
 
     @Before
     public void setup() {
-        presenter = new MainPresenter();
+        presenter = new ClassicPresenter();
         presenter.setView(mockView);
     }
 

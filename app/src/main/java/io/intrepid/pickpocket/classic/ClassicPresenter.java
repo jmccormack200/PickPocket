@@ -1,10 +1,10 @@
-package io.intrepid.pickpocket.main;
+package io.intrepid.pickpocket.classic;
 
 import java.util.ArrayList;
 
-public class MainPresenter implements MainContract.Presenter {
+public class ClassicPresenter implements ClassicContract.Presenter {
 
-    MainContract.View view;
+    ClassicContract.View view;
 
     private ArrayList<String> currentCombination;
     private ArrayList<String> newCombination;
@@ -12,7 +12,7 @@ public class MainPresenter implements MainContract.Presenter {
     private boolean locked;
     private boolean programMode;
 
-    MainPresenter() {
+    ClassicPresenter() {
         position = 0;
         locked = true;
         programMode = false;
@@ -76,7 +76,7 @@ public class MainPresenter implements MainContract.Presenter {
 
 
     @Override
-    public void setView(MainContract.View view) {
+    public void setView(ClassicContract.View view) {
         this.view = view;
     }
 }

@@ -1,6 +1,6 @@
-package io.intrepid.pickpocket.main;
+package io.intrepid.pickpocket.classic;
 
-public interface MainContract {
+public interface ClassicContract {
 
     interface View {
         void unlock();
@@ -8,7 +8,7 @@ public interface MainContract {
     }
 
     interface Presenter{
-        void setView(MainContract.View view);
+        void setView(ClassicContract.View view);
         void buttonClicked(String s);
         void programSwitchToggled(boolean checked);
     }
