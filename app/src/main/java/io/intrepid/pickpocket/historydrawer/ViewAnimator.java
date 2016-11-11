@@ -15,8 +15,7 @@ import java.util.List;
 import io.intrepid.pickpocket.R;
 import io.intrepid.pickpocket.codebreaker.CodeBreakerGuess;
 
-public class ViewAnimator
-{
+public class ViewAnimator {
     private final int ANIMATION_DURATION = 250;
     private Activity activity;
     private List<CodeBreakerGuess> list;
@@ -27,35 +26,30 @@ public class ViewAnimator
     public ViewAnimator(Activity activity,
                         List<CodeBreakerGuess> items,
                         final DrawerLayout drawerLayout,
-                        ViewAnimatorListener animatorListener)
-    {
+                        ViewAnimatorListener animatorListener) {
         this.activity = activity;
         this.list = items;
         this.drawerLayout = drawerLayout;
         this.animatorListener = animatorListener;
     }
 
-    public void showMenuContent()
-    {
+    public void showMenuContent() {
         viewList.clear();
         animatorListener.removeViewsFromContainers();
         double size = list.size();
-        for (int i = 0; i < size; i++)
-        {
+        for (int i = 0; i < size; i++) {
             View viewMenu = activity.getLayoutInflater().inflate(R.layout.menu_list_item, null);
-            ((TextView) viewMenu.findViewById(R.id.menu_item_label)).setText(TextUtils.join(", ", list.get(i).getGuess()));
+            ((TextView) viewMenu.findViewById(R.id.menu_item_label)).setText(TextUtils.join(", ",
+                                                                                            list.get(i).getGuess()));
             viewMenu.setVisibility(View.GONE);
             viewMenu.setEnabled(false);
             viewList.add(viewMenu);
             animatorListener.addViewToContainer(viewMenu);
             final double position = i;
             final double delay = 3 * ANIMATION_DURATION * (position / size);
-            new Handler().postDelayed(new Runnable()
-            {
-                public void run()
-                {
-                    if (position < viewList.size())
-                    {
+            new Handler().postDelayed(new Runnable() {
+                public void run() {
+                    if (position < viewList.size()) {
                         animateView((int) position);
                     }
                 }
@@ -63,8 +57,7 @@ public class ViewAnimator
         }
     }
 
-    private void animateView(int position)
-    {
+    private void animateView(int position) {
         final View view = viewList.get(position);
         view.setVisibility(View.VISIBLE);
         FlipAnimation rotation =
@@ -72,30 +65,25 @@ public class ViewAnimator
         rotation.setDuration(ANIMATION_DURATION);
         rotation.setFillAfter(true);
         rotation.setInterpolator(new AccelerateInterpolator());
-        rotation.setAnimationListener(new Animation.AnimationListener()
-        {
+        rotation.setAnimationListener(new Animation.AnimationListener() {
             @Override
-            public void onAnimationStart(Animation animation)
-            {
+            public void onAnimationStart(Animation animation) {
             }
 
             @Override
-            public void onAnimationEnd(Animation animation)
-            {
+            public void onAnimationEnd(Animation animation) {
                 view.clearAnimation();
             }
 
             @Override
-            public void onAnimationRepeat(Animation animation)
-            {
+            public void onAnimationRepeat(Animation animation) {
             }
         });
 
         view.startAnimation(rotation);
     }
 
-    public interface ViewAnimatorListener
-    {
+    public interface ViewAnimatorListener {
         public void addViewToContainer(View view);
 
         public void removeViewsFromContainers();
