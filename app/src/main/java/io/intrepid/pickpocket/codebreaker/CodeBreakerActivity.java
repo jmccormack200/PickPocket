@@ -13,18 +13,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.intrepid.pickpocket.R;
-import io.intrepid.pickpocket.widget.AnswerCheckImageView;
+import io.intrepid.pickpocket.widget.answerboxes.AnswerBoxView;
 
 public class CodeBreakerActivity extends AppCompatActivity implements CodeBreakerContract.View {
 
-    @BindView(R.id.answer_digit_one)
-    AnswerCheckImageView answerCheckOne;
-    @BindView(R.id.answer_digit_two)
-    AnswerCheckImageView answercheckTwo;
-    @BindView(R.id.answer_digit_three)
-    AnswerCheckImageView answerCheckThree;
-    @BindView(R.id.answer_digit_four)
-    AnswerCheckImageView answerCheckFour;
+
     @BindView(R.id.guess_digit_one)
     TextView guessDigitOne;
     @BindView(R.id.guess_digit_two)
@@ -35,6 +28,9 @@ public class CodeBreakerActivity extends AppCompatActivity implements CodeBreake
     TextView guessDigitFour;
     @BindView(R.id.lock_icon)
     CheckedTextView lockIcon;
+    @BindView(R.id.answer_boxes)
+    AnswerBoxView answerBoxView;
+
     private CodeBreakerContract.Presenter presenter;
 
     public static Intent makeIntent(Context context) {
@@ -73,26 +69,6 @@ public class CodeBreakerActivity extends AppCompatActivity implements CodeBreake
     }
 
     @Override
-    public void showCorrectAtPositionOne() {
-        answerCheckOne.setImageCorrect();
-    }
-
-    @Override
-    public void showCorrectAtPositionTwo() {
-        answercheckTwo.setImageCorrect();
-    }
-
-    @Override
-    public void showCorrectAtPositionThree() {
-        answerCheckThree.setImageCorrect();
-    }
-
-    @Override
-    public void showCorrectAsPositionFour() {
-        answerCheckFour.setImageCorrect();
-    }
-
-    @Override
     public void unlock() {
         lockIcon.setChecked(true);
     }
@@ -103,31 +79,13 @@ public class CodeBreakerActivity extends AppCompatActivity implements CodeBreake
     }
 
     @Override
-    public void showRightNumberWrongPositionFour() {
-        answerCheckFour.setImageCorrectValueWrongLocation();
+    public void setNumberCorrect(int numberCorrect, int numberInAnswer) {
+        answerBoxView.setNumberCorrect(numberCorrect, numberInAnswer);
     }
 
     @Override
-    public void showRightNumberWrongPositionThree() {
-        answerCheckThree.setImageCorrectValueWrongLocation();
-    }
-
-    @Override
-    public void showRightNumberWrongPositionTwo() {
-        answercheckTwo.setImageCorrectValueWrongLocation();
-    }
-
-    @Override
-    public void showRightNumberWrongPositionOne() {
-        answerCheckOne.setImageCorrectValueWrongLocation();
-    }
-
-    @Override
-    public void showAllIncorrect() {
-        answerCheckOne.setImageWrong();
-        answercheckTwo.setImageWrong();
-        answerCheckThree.setImageWrong();
-        answerCheckFour.setImageWrong();
+    public void showAllCorrect() {
+        answerBoxView.showAllCorrect();
     }
 
     @OnClick({ R.id.button_one, R.id.button_two, R.id.button_three, R.id.button_four, R.id.button_five, R.id.button_six })

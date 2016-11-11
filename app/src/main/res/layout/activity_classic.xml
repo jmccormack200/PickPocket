@@ -24,37 +24,39 @@
 
     <include
         android:id="@+id/button_layout"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
         layout="@layout/button_layout"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/lock_icon"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lock_icon" />
 
     <TextView
         android:id="@+id/programming_mode_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="invisible"
-        app:layout_constraintStart_toStartOf="@+id/programming_mode_switch"
-        app:layout_constraintEnd_toEndOf="@+id/programming_mode_switch"
-        app:layout_constraintBottom_toTopOf="@+id/programming_mode_switch"
         android:fontFamily="monospace"
         android:text="@string/programming_mode"
-        tools:visibility="visible"/>
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/programming_mode_switch"
+        app:layout_constraintEnd_toEndOf="@+id/programming_mode_switch"
+        app:layout_constraintStart_toStartOf="@+id/programming_mode_switch"
+        tools:layout_editor_absoluteX="124dp"
+        tools:visibility="visible" />
 
     <Switch
         android:id="@+id/programming_mode_switch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="invisible"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button_layout"
-        tools:visibility="visible"/>
+        tools:layout_editor_absoluteX="172dp"
+        tools:visibility="visible" />
 
 </android.support.constraint.ConstraintLayout>

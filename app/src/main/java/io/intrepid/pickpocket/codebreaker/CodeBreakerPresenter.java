@@ -7,7 +7,6 @@ public class CodeBreakerPresenter implements CodeBreakerContract.Presenter {
     private ArrayList<String> secretCombination;
     private ArrayList<String> guessCombination;
     private int position;
-    private boolean locked;
     private int numberCorrect;
     private int numberInAnswer;
 
@@ -60,19 +59,7 @@ public class CodeBreakerPresenter implements CodeBreakerContract.Presenter {
         numberCorrect = 0;
         numberInAnswer = 0;
         view.lock();
-        showAllIncorrect();
         countNearMatches();
-    }
-
-    private void showAllIncorrect() {
-        view.showAllIncorrect();
-    }
-
-    private void showAllCorrect() {
-        view.showCorrectAtPositionOne();
-        view.showCorrectAtPositionTwo();
-        view.showCorrectAtPositionThree();
-        view.showCorrectAsPositionFour();
     }
 
     private void showUnlock() {
@@ -116,36 +103,14 @@ public class CodeBreakerPresenter implements CodeBreakerContract.Presenter {
         setAnswerHints();
     }
 
-    private void setAnswerHints() {
-        // We combine together both sets of matches and set all to the 'nearly correct' state
-        // we then switch the correct answers after. This is a hack to make the logic nicer.
-        int totalHintsToShow = numberCorrect + numberInAnswer;
-        if (totalHintsToShow == 4){
-            view.showRightNumberWrongPositionFour();
-        }
-        if (totalHintsToShow >= 3){
-            view.showRightNumberWrongPositionThree();
-        }
-        if (totalHintsToShow >= 2){
-            view.showRightNumberWrongPositionTwo();
-        }
-        if (totalHintsToShow >= 1){
-            view.showRightNumberWrongPositionOne();
-        }
+    private void showAllCorrect() {
+        view.showAllCorrect();
+    }
 
-        // switch any 'half-right' answers to full answers if needed.
+    private void setAnswerHints() {
+        view.setNumberCorrect(numberCorrect, numberInAnswer);
         if (numberCorrect == 4){
-            view.showCorrectAsPositionFour();
-            view.unlock();
-        }
-        if (numberCorrect >= 3){
-            view.showCorrectAtPositionThree();
-        }
-        if (numberCorrect >= 2){
-            view.showCorrectAtPositionTwo();
-        }
-        if (numberCorrect >= 1){
-            view.showCorrectAtPositionOne();
+            showUnlock();
         }
     }
 }

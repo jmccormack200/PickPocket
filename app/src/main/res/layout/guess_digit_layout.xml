@@ -13,7 +13,8 @@
         app:layout_constraintEnd_toStartOf="@+id/guess_digit_two"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="1"/>
+        tools:layout_editor_absoluteX="63dp"
+        tools:text="1" />
 
     <TextView
         android:id="@+id/guess_digit_two"
@@ -24,7 +25,8 @@
         app:layout_constraintEnd_toStartOf="@+id/guess_digit_three"
         app:layout_constraintStart_toEndOf="@id/guess_digit_one"
         app:layout_constraintTop_toTopOf="@+id/guess_digit_one"
-        tools:text="1"/>
+        tools:layout_editor_absoluteX="143dp"
+        tools:text="1" />
 
     <TextView
         android:id="@+id/guess_digit_three"
@@ -35,7 +37,8 @@
         app:layout_constraintEnd_toStartOf="@+id/guess_digit_four"
         app:layout_constraintStart_toEndOf="@id/guess_digit_two"
         app:layout_constraintTop_toTopOf="@+id/guess_digit_one"
-        tools:text="1"/>
+        tools:layout_editor_absoluteX="224dp"
+        tools:text="1" />
 
     <TextView
         android:id="@+id/guess_digit_four"
@@ -46,38 +49,43 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/guess_digit_three"
         app:layout_constraintTop_toTopOf="@+id/guess_digit_one"
-        tools:text="1"/>
+        tools:layout_editor_absoluteX="304dp"
+        tools:text="1" />
 
     <View
         android:layout_width="0dp"
         android:layout_height="2dp"
         android:background="@color/colorAccent"
-        app:layout_constraintTop_toBottomOf="@id/guess_digit_one"
+        app:layout_constraintEnd_toEndOf="@id/guess_digit_one"
         app:layout_constraintStart_toStartOf="@id/guess_digit_one"
-        app:layout_constraintEnd_toEndOf="@id/guess_digit_one"/>
+        app:layout_constraintTop_toBottomOf="@+id/guess_digit_one"
+        tools:layout_editor_absoluteX="63dp" />
 
     <View
         android:layout_width="0dp"
         android:layout_height="2dp"
         android:background="@color/colorAccent"
-        app:layout_constraintTop_toBottomOf="@id/guess_digit_one"
+        app:layout_constraintEnd_toEndOf="@id/guess_digit_two"
         app:layout_constraintStart_toStartOf="@id/guess_digit_two"
-        app:layout_constraintEnd_toEndOf="@id/guess_digit_two"/>
+        app:layout_constraintTop_toBottomOf="@+id/guess_digit_one"
+        tools:layout_editor_absoluteX="143dp" />
 
     <View
         android:layout_width="0dp"
         android:layout_height="2dp"
         android:background="@color/colorAccent"
-        app:layout_constraintTop_toBottomOf="@id/guess_digit_one"
+        app:layout_constraintEnd_toEndOf="@id/guess_digit_three"
         app:layout_constraintStart_toStartOf="@id/guess_digit_three"
-        app:layout_constraintEnd_toEndOf="@id/guess_digit_three"/>
+        app:layout_constraintTop_toBottomOf="@+id/guess_digit_one"
+        tools:layout_editor_absoluteX="224dp" />
 
     <View
         android:layout_width="0dp"
         android:layout_height="2dp"
         android:background="@color/colorAccent"
-        app:layout_constraintTop_toBottomOf="@id/guess_digit_one"
+        app:layout_constraintEnd_toEndOf="@id/guess_digit_four"
         app:layout_constraintStart_toStartOf="@id/guess_digit_four"
-        app:layout_constraintEnd_toEndOf="@id/guess_digit_four"/>
+        app:layout_constraintTop_toBottomOf="@+id/guess_digit_one"
+        tools:layout_editor_absoluteX="304dp" />
 
 </android.support.constraint.ConstraintLayout>

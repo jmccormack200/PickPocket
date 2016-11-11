@@ -7,17 +7,10 @@ public interface CodeBreakerContract {
         void showGuessInPositionTwo(String guess);
         void showGuessInPositionThree(String guess);
         void showGuessInPositionFour(String guess);
-        void showCorrectAtPositionOne();
-        void showCorrectAtPositionTwo();
-        void showCorrectAtPositionThree();
-        void showCorrectAsPositionFour();
         void unlock();
-        void showRightNumberWrongPositionFour();
-        void showRightNumberWrongPositionThree();
-        void showRightNumberWrongPositionTwo();
-        void showRightNumberWrongPositionOne();
-        void showAllIncorrect();
         void lock();
+        void setNumberCorrect(int numberCorrect, int numberInAnswer);
+        void showAllCorrect();
     }
 
     interface Presenter {
