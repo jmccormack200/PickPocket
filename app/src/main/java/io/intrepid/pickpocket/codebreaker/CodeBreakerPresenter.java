@@ -1,14 +1,12 @@
 package io.intrepid.pickpocket.codebreaker;
 
-import android.widget.ViewAnimator;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class CodeBreakerPresenter implements CodeBreakerContract.Presenter {
 
-    private ArrayList<String> secretCombination;
-    private ArrayList<String> guessCombination;
+    private List<String> secretCombination;
+    private List<String> guessCombination;
     private int position;
     private int numberCorrect;
     private int numberInAnswer;
@@ -125,15 +123,14 @@ public class CodeBreakerPresenter implements CodeBreakerContract.Presenter {
         }
     }
 
-    private void clearGuessesIfCorrect(int numCorrect)
-    {
-        if(numCorrect == 4)
-        {
+    private void clearGuessesIfCorrect(int numCorrect) {
+        if (numCorrect == 4) {
             codeBreakerGuessList.clear();
         }
     }
 
-    private void storeGuess(List<String> guess, int numberCorrect, int numberInAnswer ) {
-        codeBreakerGuessList.add(new CodeBreakerGuess(guess, numberCorrect, numberInAnswer));
+    private void storeGuess(List<String> guess, int numberCorrect, int numberInAnswer) {
+        List guessCopy = (List) ((ArrayList<String>) guess).clone();
+        codeBreakerGuessList.add(new CodeBreakerGuess(guessCopy, numberCorrect, numberInAnswer));
     }
 }

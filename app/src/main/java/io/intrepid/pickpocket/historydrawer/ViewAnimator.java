@@ -16,7 +16,7 @@ import io.intrepid.pickpocket.R;
 import io.intrepid.pickpocket.codebreaker.CodeBreakerGuess;
 
 public class ViewAnimator {
-    private final int ANIMATION_DURATION = 250;
+    private final int ANIMATION_DURATION = 300;
     private Activity activity;
     private List<CodeBreakerGuess> list;
     private List<View> viewList = new ArrayList<>();
@@ -39,7 +39,7 @@ public class ViewAnimator {
         double size = list.size();
         for (int i = 0; i < size; i++) {
             View viewMenu = activity.getLayoutInflater().inflate(R.layout.menu_list_item, null);
-            ((TextView) viewMenu.findViewById(R.id.menu_item_label)).setText(TextUtils.join(", ",
+            ((TextView) viewMenu.findViewById(R.id.menu_item_label)).setText(TextUtils.join("",
                                                                                             list.get(i).getGuess()));
             viewMenu.setVisibility(View.GONE);
             viewMenu.setEnabled(false);

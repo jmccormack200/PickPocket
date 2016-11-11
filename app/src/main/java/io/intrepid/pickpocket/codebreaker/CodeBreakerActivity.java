@@ -62,8 +62,7 @@ public class CodeBreakerActivity extends AppCompatActivity implements CodeBreake
         drawerLayout.setScrimColor(Color.BLACK);
         lockIcon.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 drawerLayout.openDrawer(Gravity.LEFT);
                 viewAnimator.showMenuContent();
             }
@@ -125,16 +124,13 @@ public class CodeBreakerActivity extends AppCompatActivity implements CodeBreake
     }
 
     @Override
-    public void addViewToContainer(View view)
-    {
+    public void addViewToContainer(View view) {
         linearLayout.addView(view);
     }
 
     @Override
-    public void removeViewsFromContainers()
-    {
-        if(linearLayout != null)
-        {
+    public void removeViewsFromContainers() {
+        if (linearLayout != null) {
             linearLayout.removeAllViews();
             linearLayout.invalidate();
         }

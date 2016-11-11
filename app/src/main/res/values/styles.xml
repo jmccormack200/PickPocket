@@ -21,6 +21,13 @@
         <item name="android:layout_marginEnd">8dp</item>
     </style>
 
+    <style name="AnswerCheckerSmall">
+        <item name="android:layout_height">20dp</item>
+        <item name="android:layout_width">20dp</item>
+        <item name="android:layout_marginStart">2dp</item>
+        <item name="android:layout_marginEnd">2dp</item>
+    </style>
+
     <style name="GuessText">
         <item name="android:textSize">30sp</item>
         <item name="android:textColor">@color/colorPrimary</item>
