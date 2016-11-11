@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:id="@+id/menu_item_container"
+              android:layout_width="100dp"
+              android:layout_height="wrap_content"
+              android:background="#ff80cbc4"
+              android:clickable="true"
+              android:orientation="vertical"
+              android:layout_centerVertical="true"
+              android:layout_marginBottom="1dp"
+    >
+    <LinearLayout
+        android:id="@+id/answer_boxes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <io.intrepid.pickpocket.widget.AnswerCheckImageView
+            android:id="@+id/answer_digit_one"
+            style="@style/AnswerCheckerSmall"
+            />
+
+        <io.intrepid.pickpocket.widget.AnswerCheckImageView
+            android:id="@+id/answer_digit_two"
+            style="@style/AnswerCheckerSmall"
+            />
+
+        <io.intrepid.pickpocket.widget.AnswerCheckImageView
+            android:id="@+id/answer_digit_three"
+            style="@style/AnswerCheckerSmall"
+            />
+
+        <io.intrepid.pickpocket.widget.AnswerCheckImageView
+            android:id="@+id/answer_digit_four"
+            style="@style/AnswerCheckerSmall"
+            />
+    </LinearLayout>
+    <TextView
+        android:id="@+id/menu_item_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        tools:text="SHIT"
+        android:letterSpacing="0.6"
+        />
+
+</LinearLayout>

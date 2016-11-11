@@ -1,5 +1,7 @@
 package io.intrepid.pickpocket.codebreaker;
 
+import java.util.List;
+
 public interface CodeBreakerContract {
 
     interface View {
@@ -17,5 +19,6 @@ public interface CodeBreakerContract {
         void setView(View codeBreakerActivity);
         void buttonClicked(String s);
         void onCheckAnswerClicked();
+        List<CodeBreakerGuess> getCodeBreakerGuessList();
     }
 }
