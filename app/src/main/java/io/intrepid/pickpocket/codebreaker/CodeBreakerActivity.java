@@ -13,11 +13,17 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.intrepid.pickpocket.R;
+import io.intrepid.pickpocket.locks.LocalLock;
+import io.intrepid.pickpocket.locks.LockInterface;
+import io.intrepid.pickpocket.locks.OnlineLock;
 import io.intrepid.pickpocket.widget.answerboxes.AnswerBoxView;
+
+import static io.intrepid.pickpocket.codebreaker.CodeBreakerActivity.CODE_BREAKER_MODE.LOCAL;
+import static io.intrepid.pickpocket.codebreaker.CodeBreakerActivity.CODE_BREAKER_MODE.ONLINE;
 
 public class CodeBreakerActivity extends AppCompatActivity implements CodeBreakerContract.View {
 
-
+    private static String ONLINE_MODE_EXTRA = "ONLINE_MODE_EXTRA";
     @BindView(R.id.guess_digit_one)
     TextView guessDigitOne;
     @BindView(R.id.guess_digit_two)
@@ -30,11 +36,18 @@ public class CodeBreakerActivity extends AppCompatActivity implements CodeBreake
     CheckedTextView lockIcon;
     @BindView(R.id.answer_boxes)
     AnswerBoxView answerBoxView;
-
     private CodeBreakerContract.Presenter presenter;
 
-    public static Intent makeIntent(Context context) {
-        return new Intent(context, CodeBreakerActivity.class);
+    public static Intent makeLocalIntent(Context context) {
+        Intent intent = new Intent(context, CodeBreakerActivity.class);
+        intent.putExtra(ONLINE_MODE_EXTRA, false);
+        return intent;
+    }
+
+    public static Intent makeOnlineIntent(Context context){
+        Intent intent = new Intent(context, CodeBreakerActivity.class);
+        intent.putExtra(ONLINE_MODE_EXTRA, true);
+        return intent;
     }
 
     @Override
@@ -43,7 +56,10 @@ public class CodeBreakerActivity extends AppCompatActivity implements CodeBreake
         setContentView(R.layout.activity_code_breaker);
         ButterKnife.bind(this);
 
-        presenter = new CodeBreakerPresenter();
+        Intent intent = getIntent();
+        boolean online_mode = intent.getBooleanExtra(ONLINE_MODE_EXTRA, false);
+        CODE_BREAKER_MODE codeBreakerMode = (online_mode) ? ONLINE : LOCAL;
+        presenter = new CodeBreakerPresenter(codeBreakerMode);
         presenter.setView(this);
     }
 
@@ -97,5 +113,24 @@ public class CodeBreakerActivity extends AppCompatActivity implements CodeBreake
     @OnClick(R.id.check_answer)
     public void onCheckAnswerClicked() {
         presenter.onCheckAnswerClicked();
+    }
+
+    public enum CODE_BREAKER_MODE {
+        LOCAL {
+            @Override
+            public LockInterface createLock() {
+                return new LocalLock();
+            }
+        },
+        ONLINE {
+            @Override
+            public LockInterface createLock() {
+                return new OnlineLock();
+            }
+        };
+
+        public LockInterface createLock() {
+            throw new RuntimeException();
+        }
     }
 }

@@ -3,7 +3,6 @@ package io.intrepid.pickpocket.codebreaker;
 import java.util.ArrayList;
 import java.util.Map;
 
-import io.intrepid.pickpocket.locks.LocalLock;
 import io.intrepid.pickpocket.locks.LockInterface;
 
 import static io.intrepid.pickpocket.locks.LockInterface.CLOSE;
@@ -17,14 +16,14 @@ public class CodeBreakerPresenter implements CodeBreakerContract.Presenter {
 
     private CodeBreakerContract.View view;
 
-    CodeBreakerPresenter() {
+    CodeBreakerPresenter(CodeBreakerActivity.CODE_BREAKER_MODE codeBreakerMode) {
         guessCombination = new ArrayList<>();
 
         guessCombination.add("");
         guessCombination.add("");
         guessCombination.add("");
         guessCombination.add("");
-        lockInterface = new LocalLock();
+        lockInterface = codeBreakerMode.createLock();
     }
 
     @Override

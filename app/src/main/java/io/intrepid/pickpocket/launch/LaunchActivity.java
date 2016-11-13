@@ -40,7 +40,7 @@ public class LaunchActivity extends AppCompatActivity implements LaunchContract.
 
     @Override
     public void startCodeBreakingMode() {
-        startActivity(CodeBreakerActivity.makeIntent(this));
+        startActivity(CodeBreakerActivity.makeLocalIntent(this));
     }
 
     @Override
