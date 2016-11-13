@@ -1,9 +1,11 @@
 package io.intrepid.pickpocket.locks;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
+import io.intrepid.pickpocket.lockapi.LockResultContainer;
+import io.intrepid.pickpocket.lockapi.Result;
+import rx.Observable;
 
 public class LocalLock implements LockInterface{
 
@@ -18,7 +20,7 @@ public class LocalLock implements LockInterface{
     }
 
     @Override
-    public Map<String, Integer> checkAnswer(List<String> guessString) {
+    public Observable<LockResultContainer> checkAnswer(List<String> guessString) {
         int numberCorrect = 0;
         int numberClose = 0;
 
@@ -48,9 +50,11 @@ public class LocalLock implements LockInterface{
                 }
             }
         }
-        Map<String, Integer> answerMap = new HashMap<>();
-        answerMap.put(CORRECT, numberCorrect);
-        answerMap.put(CLOSE, numberClose);
-        return answerMap;
+        LockResultContainer lockResultContainer = new LockResultContainer();
+        Result result = new Result();
+        result.setCorrect(numberCorrect);
+        result.setClose(numberClose);
+        lockResultContainer.setResult(result);
+        return Observable.just(lockResultContainer);
     }
 }

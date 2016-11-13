@@ -1,12 +1,13 @@
 package io.intrepid.pickpocket.lockapi;
 
-import io.intrepid.pickpocket.models.GsonLock;
-import retrofit2.Call;
+
+import io.intrepid.pickpocket.models.GsonCombinationAttempt;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
+import rx.Observable;
 
 public interface LockAPIEndpointInterface {
 
     @POST("checkcombination")
-    Call<OnlineLockResultContainer> checkLock(@Body GsonLock gsonLock);
+    Observable<LockResultContainer> checkLock(@Body GsonCombinationAttempt gsonCombinationAttempt);
 }

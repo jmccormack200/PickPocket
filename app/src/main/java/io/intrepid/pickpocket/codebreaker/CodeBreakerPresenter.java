@@ -1,9 +1,14 @@
 package io.intrepid.pickpocket.codebreaker;
 
 import java.util.ArrayList;
-import java.util.Map;
 
+import io.intrepid.pickpocket.lockapi.LockResultContainer;
+import io.intrepid.pickpocket.lockapi.Result;
 import io.intrepid.pickpocket.locks.LockInterface;
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
+import timber.log.Timber;
 
 public class CodeBreakerPresenter implements CodeBreakerContract.Presenter {
 
@@ -59,10 +64,19 @@ public class CodeBreakerPresenter implements CodeBreakerContract.Presenter {
     }
 
     private void countNearMatches() {
-        Map<String, Integer> answerMap = lockInterface.checkAnswer(guessCombination);
-//        view.setNumberCorrect(answerMap.get(CORRECT), answerMap.get(CLOSE));
-//        if (answerMap.get(CORRECT) == guessCombination.size()){
-//            view.unlock();
-//        }
+        Observable<LockResultContainer> answerMap = lockInterface.checkAnswer(guessCombination);
+
+        answerMap.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).
+                subscribe(this::showResult, throwable -> {
+                    Timber.e("Error fetching data %s: ", throwable.getMessage());
+                });
+    }
+
+    private void showResult(LockResultContainer success) {
+        Result result = success.getResult();
+        view.setNumberCorrect(result.getCorrect(), result.getClose());
+        if (result.getClose() == guessCombination.size()) {
+            view.unlock();
+        }
     }
 }

@@ -1,19 +1,13 @@
 package io.intrepid.pickpocket.locks;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import io.intrepid.pickpocket.lockapi.LockAPIEndpointInterface;
-import io.intrepid.pickpocket.lockapi.OnlineLockResultContainer;
-import io.intrepid.pickpocket.lockapi.Result;
-import io.intrepid.pickpocket.models.GsonLock;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import io.intrepid.pickpocket.lockapi.LockResultContainer;
+import io.intrepid.pickpocket.models.GsonCombinationAttempt;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import timber.log.Timber;
 
 public class OnlineLock implements LockInterface {
 
@@ -25,6 +19,7 @@ public class OnlineLock implements LockInterface {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
 
         api = retrofit.create(LockAPIEndpointInterface.class);
@@ -32,40 +27,17 @@ public class OnlineLock implements LockInterface {
     }
 
     @Override
-    public Map<String, Integer> checkAnswer(List<String> guessString) {
-        final Map<String, Integer> resultMap = new HashMap<>();
-        String listAsString = guessString.toString();
-        final GsonLock gsonLock = new GsonLock("2 2 2 2", "Dad");
-        Call<OnlineLockResultContainer> call = api.checkLock(gsonLock);
-
-        call.enqueue(new Callback<OnlineLockResultContainer>() {
-            @Override
-            public void onResponse(Call<OnlineLockResultContainer> call, Response<OnlineLockResultContainer> response) {
-                Result result = response.body().getResult();
-                resultMap.put(CORRECT, result.getCorrect());
-                resultMap.put(CLOSE, result.getClose());
-            }
-
-            @Override
-            public void onFailure(Call<OnlineLockResultContainer> call, Throwable t) {
-                Timber.e("Nope nope nope");
-            }
-        });
-        return resultMap;
+    public rx.Observable<LockResultContainer> checkAnswer(List<String> guessStringList) {
+        String guestString = listOfStringsToString(guessStringList);
+        final GsonCombinationAttempt gsonCombinationAttempt = new GsonCombinationAttempt(guestString, "Dad");
+        return api.checkLock(gsonCombinationAttempt);
     }
 
-    /*
-    User user = new User(123, "John Doe");
-Call<User> call = apiService.createuser(user);
-call.enqueue(new Callback<User>() {
-  @Override
-  public void onResponse(Call<User> call, Response<User> response) {
-
-  }
-
-  @Override
-  public void onFailure(Call<User> call, Throwable t) {
-
-  }
-     */
+    private String listOfStringsToString(List<String> stringList){
+        String outputString = "";
+        for (String digit : stringList){
+            outputString = outputString + digit + " ";
+        }
+        return outputString;
+    }
 }

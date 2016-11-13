@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 import javax.annotation.Generated;
 
 @Generated("org.jsonschema2pojo")
-public class OnlineLockResultContainer {
+public class LockResultContainer {
 
     @SerializedName("result")
     @Expose

@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 import javax.annotation.Generated;
 
 @Generated("org.jsonschema2pojo")
-public class GsonLock {
+public class GsonCombinationAttempt {
 
     @SerializedName("guess")
     @Expose
@@ -15,7 +15,7 @@ public class GsonLock {
     @Expose
     private String user;
 
-    public GsonLock(String guess, String user){
+    public GsonCombinationAttempt(String guess, String user){
         this.guess = guess;
         this.user = user;
     }
