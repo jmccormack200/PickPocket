@@ -1,28 +1,30 @@
 package io.intrepid.pickpocket.codebreaker;
 
 import java.util.ArrayList;
+import java.util.Map;
+
+import io.intrepid.pickpocket.locks.LocalLock;
+import io.intrepid.pickpocket.locks.LockInterface;
+
+import static io.intrepid.pickpocket.locks.LockInterface.CLOSE;
+import static io.intrepid.pickpocket.locks.LockInterface.CORRECT;
 
 public class CodeBreakerPresenter implements CodeBreakerContract.Presenter {
 
-    private ArrayList<String> secretCombination;
     private ArrayList<String> guessCombination;
     private int position;
-    private int numberCorrect;
-    private int numberInAnswer;
+    private LockInterface lockInterface;
 
     private CodeBreakerContract.View view;
 
     CodeBreakerPresenter() {
-        secretCombination = new ArrayList<>();
         guessCombination = new ArrayList<>();
-        secretCombination.add("1");
-        secretCombination.add("2");
-        secretCombination.add("3");
-        secretCombination.add("4");
+
         guessCombination.add("");
         guessCombination.add("");
         guessCombination.add("");
         guessCombination.add("");
+        lockInterface = new LocalLock();
     }
 
     @Override
@@ -56,61 +58,15 @@ public class CodeBreakerPresenter implements CodeBreakerContract.Presenter {
 
     @Override
     public void onCheckAnswerClicked() {
-        numberCorrect = 0;
-        numberInAnswer = 0;
         view.lock();
         countNearMatches();
     }
 
-    private void showUnlock() {
-        view.unlock();
-    }
-
-    // guess: "2 2 1 1"
-    // actual: "1 1 1 2"
-    // result: G N N X
     private void countNearMatches() {
-        ArrayList<String> remainingGuesses = new ArrayList<>();
-        remainingGuesses.addAll(guessCombination);
-
-        ArrayList<String> remainingSecretCombination = new ArrayList<>();
-        remainingSecretCombination.addAll(secretCombination);
-
-        // First remove exact matches;
-        for (int i = 0; i < remainingSecretCombination.size(); i++) {
-            if (remainingGuesses.get(i).equals(remainingSecretCombination.get(i))) {
-                numberCorrect++;
-                remainingGuesses.set(i, "x");
-                remainingSecretCombination.set(i, "x");
-            }
-        }
-
-        if (numberCorrect != remainingSecretCombination.size()) {
-            for (int i = 0; i < remainingGuesses.size(); i++) {
-                if (remainingGuesses.get(i).equals("x")) {
-                    break;
-                } else {
-                    if (remainingSecretCombination.contains(remainingGuesses.get(i))) {
-                        remainingSecretCombination.set(
-                                remainingSecretCombination.indexOf(remainingGuesses.get(i)), "x");
-                        numberInAnswer++;
-                    }
-                }
-            }
-        } else {
-            showAllCorrect();
-        }
-        setAnswerHints();
-    }
-
-    private void showAllCorrect() {
-        view.showAllCorrect();
-    }
-
-    private void setAnswerHints() {
-        view.setNumberCorrect(numberCorrect, numberInAnswer);
-        if (numberCorrect == 4){
-            showUnlock();
+        Map<String, Integer> answerMap = lockInterface.checkAnswer(guessCombination);
+        view.setNumberCorrect(answerMap.get(CORRECT), answerMap.get(CLOSE));
+        if (answerMap.get(CORRECT) == guessCombination.size()){
+            view.unlock();
         }
     }
 }

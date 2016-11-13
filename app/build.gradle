@@ -34,4 +34,12 @@ dependencies {
 
     // Testing
     testCompile "org.mockito:mockito-all:1.10.19"
+
+    // Retrofit
+    compile 'com.squareup.retrofit2:retrofit:2.0.2'//this for the retrofit
+    compile 'com.squareup.retrofit2:converter-gson:2.0.0'// this for the JSON converter
+
+    // RetroLambda
+    apply plugin: 'com.android.application' // or apply plugin: 'java'
+    apply plugin: 'me.tatarka.retrolambda'
 }
