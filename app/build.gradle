@@ -36,10 +36,16 @@ dependencies {
     testCompile "org.mockito:mockito-all:1.10.19"
 
     // Retrofit
-    compile 'com.squareup.retrofit2:retrofit:2.0.2'//this for the retrofit
-    compile 'com.squareup.retrofit2:converter-gson:2.0.0'// this for the JSON converter
+    compile 'com.squareup.retrofit2:retrofit:2.1.0'//this for the retrofit
+    compile 'com.squareup.retrofit2:converter-gson:2.1.0'// this for the JSON converter
+    compile 'com.google.code.gson:gson:2.6.2'
+    compile 'io.reactivex:rxandroid:1.2.0'
+    compile 'io.reactivex:rxjava:1.1.4'
+    provided 'org.glassfish:javax.annotation:10.0-b28'
 
     // RetroLambda
     apply plugin: 'com.android.application' // or apply plugin: 'java'
     apply plugin: 'me.tatarka.retrolambda'
+
+    compile 'com.jakewharton.timber:timber:4.3.1'
 }

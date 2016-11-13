@@ -5,9 +5,6 @@ import java.util.Map;
 
 import io.intrepid.pickpocket.locks.LockInterface;
 
-import static io.intrepid.pickpocket.locks.LockInterface.CLOSE;
-import static io.intrepid.pickpocket.locks.LockInterface.CORRECT;
-
 public class CodeBreakerPresenter implements CodeBreakerContract.Presenter {
 
     private ArrayList<String> guessCombination;
@@ -63,9 +60,9 @@ public class CodeBreakerPresenter implements CodeBreakerContract.Presenter {
 
     private void countNearMatches() {
         Map<String, Integer> answerMap = lockInterface.checkAnswer(guessCombination);
-        view.setNumberCorrect(answerMap.get(CORRECT), answerMap.get(CLOSE));
-        if (answerMap.get(CORRECT) == guessCombination.size()){
-            view.unlock();
-        }
+//        view.setNumberCorrect(answerMap.get(CORRECT), answerMap.get(CLOSE));
+//        if (answerMap.get(CORRECT) == guessCombination.size()){
+//            view.unlock();
+//        }
     }
 }
