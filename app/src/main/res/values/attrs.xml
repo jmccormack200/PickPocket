@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="AnswerBoxView">
+        <attr name="sizeSmall" format="boolean"/>
+    </declare-styleable>
+    <declare-styleable name="AnswerCheckImageView">
+        <attr name="colorWhite" format="boolean"/>
+    </declare-styleable>
+</resources>
