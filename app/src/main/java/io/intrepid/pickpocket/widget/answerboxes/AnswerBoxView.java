@@ -1,6 +1,7 @@
 package io.intrepid.pickpocket.widget.answerboxes;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
 
@@ -31,7 +32,16 @@ public class AnswerBoxView extends LinearLayout implements AnswerBoxContract.Vie
     }
 
     private void setView(Context context, AttributeSet attrs) {
-        inflate(context, R.layout.answer_box_layout, this);
+        TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.AnswerBoxView, 0, 0);
+        boolean sizeSmall;
+
+        try {
+            sizeSmall = ta.getBoolean(R.styleable.AnswerBoxView_sizeSmall, false);
+        } finally {
+            ta.recycle();
+        }
+
+        inflate(context, sizeSmall ? R.layout.answer_box_layout_white_small : R.layout.answer_box_layout, this);
         ButterKnife.bind(this);
     }
 

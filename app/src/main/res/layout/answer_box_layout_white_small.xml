@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/answer_boxes"
+              android:layout_width="wrap_content"
+              android:layout_height="48dp"
+              android:gravity="center"
+              android:orientation="horizontal"
+    >
+
+    <io.intrepid.pickpocket.widget.AnswerCheckImageView
+        xmlns:customNS="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/answer_digit_one"
+        style="@style/AnswerCheckerSmall"
+        customNS:colorWhite="true"
+        />
+
+    <io.intrepid.pickpocket.widget.AnswerCheckImageView
+        xmlns:customNS="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/answer_digit_two"
+        style="@style/AnswerCheckerSmall"
+        customNS:colorWhite="true"
+        />
+
+    <io.intrepid.pickpocket.widget.AnswerCheckImageView
+        xmlns:customNS="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/answer_digit_three"
+        style="@style/AnswerCheckerSmall"
+        customNS:colorWhite="true"
+        />
+
+    <io.intrepid.pickpocket.widget.AnswerCheckImageView
+        xmlns:customNS="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/answer_digit_four"
+        style="@style/AnswerCheckerSmall"
+        customNS:colorWhite="true"
+        />
+</LinearLayout>

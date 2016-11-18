@@ -1,20 +1,22 @@
 package io.intrepid.pickpocket.codebreaker;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CodeBreakerPresenter implements CodeBreakerContract.Presenter {
-
-    private ArrayList<String> secretCombination;
-    private ArrayList<String> guessCombination;
     private int position;
     private int numberCorrect;
     private int numberInAnswer;
+    private List<String> secretCombination;
+    private List<String> guessCombination;
+    private List<CodeBreakerGuess> codeBreakerGuessList;
 
     private CodeBreakerContract.View view;
 
     CodeBreakerPresenter() {
         secretCombination = new ArrayList<>();
         guessCombination = new ArrayList<>();
+        codeBreakerGuessList = new ArrayList<>();
         secretCombination.add("1");
         secretCombination.add("2");
         secretCombination.add("3");
@@ -23,6 +25,10 @@ public class CodeBreakerPresenter implements CodeBreakerContract.Presenter {
         guessCombination.add("");
         guessCombination.add("");
         guessCombination.add("");
+    }
+
+    public List<CodeBreakerGuess> getCodeBreakerGuessList() {
+        return codeBreakerGuessList;
     }
 
     @Override
@@ -100,6 +106,8 @@ public class CodeBreakerPresenter implements CodeBreakerContract.Presenter {
         } else {
             showAllCorrect();
         }
+        storeGuess(guessCombination, numberCorrect, numberInAnswer);
+        clearGuessesIfCorrect(numberCorrect);
         setAnswerHints();
     }
 
@@ -109,8 +117,18 @@ public class CodeBreakerPresenter implements CodeBreakerContract.Presenter {
 
     private void setAnswerHints() {
         view.setNumberCorrect(numberCorrect, numberInAnswer);
-        if (numberCorrect == 4){
+        if (numberCorrect == 4) {
             showUnlock();
         }
+    }
+
+    private void clearGuessesIfCorrect(int numCorrect) {
+        if (numCorrect == 4) {
+            codeBreakerGuessList.clear();
+        }
+    }
+    private void storeGuess(List<String> guess, int numberCorrect, int numberInAnswer) {
+        List guessCopy = (List) ((ArrayList<String>) guess).clone();
+        codeBreakerGuessList.add(new CodeBreakerGuess(guessCopy, numberCorrect, numberInAnswer));
     }
 }
