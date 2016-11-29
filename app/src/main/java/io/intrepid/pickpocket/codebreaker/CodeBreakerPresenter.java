@@ -1,6 +1,7 @@
 package io.intrepid.pickpocket.codebreaker;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import io.intrepid.pickpocket.lockapi.LockResultContainer;
 import io.intrepid.pickpocket.lockapi.Result;
@@ -14,18 +15,28 @@ public class CodeBreakerPresenter implements CodeBreakerContract.Presenter {
 
     private ArrayList<String> guessCombination;
     private int position;
+    private int numberCorrect;
+    private int numberInAnswer;
+    private List<String> secretCombination;
+    private List<String> guessCombination;
+    private List<CodeBreakerGuess> codeBreakerGuessList;
     private LockInterface lockInterface;
 
     private CodeBreakerContract.View view;
 
     CodeBreakerPresenter(CodeBreakerActivity.CODE_BREAKER_MODE codeBreakerMode) {
         guessCombination = new ArrayList<>();
+        codeBreakerGuessList = new ArrayList<>();
 
         guessCombination.add("");
         guessCombination.add("");
         guessCombination.add("");
         guessCombination.add("");
         lockInterface = codeBreakerMode.createLock();
+    }
+
+    public List<CodeBreakerGuess> getCodeBreakerGuessList() {
+        return codeBreakerGuessList;
     }
 
     @Override
@@ -75,8 +86,15 @@ public class CodeBreakerPresenter implements CodeBreakerContract.Presenter {
     private void showResult(LockResultContainer success) {
         Result result = success.getResult();
         view.setNumberCorrect(result.getCorrect(), result.getClose());
+        storeGuess(guessCombination, success.getCorrect(), success.getClose());
         if (result.getClose() == guessCombination.size()) {
             view.unlock();
+            codeBreakerGuessList.clear();
         }
+    }
+
+    private void storeGuess(List<String> guess, int numberCorrect, int numberInAnswer) {
+        List guessCopy = (List) ((ArrayList<String>) guess).clone();
+        codeBreakerGuessList.add(new CodeBreakerGuess(guessCopy, numberCorrect, numberInAnswer));
     }
 }
