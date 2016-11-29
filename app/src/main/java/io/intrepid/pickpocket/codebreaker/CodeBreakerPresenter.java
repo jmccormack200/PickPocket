@@ -3,28 +3,32 @@ package io.intrepid.pickpocket.codebreaker;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.intrepid.pickpocket.lockapi.LockResultContainer;
+import io.intrepid.pickpocket.lockapi.Result;
+import io.intrepid.pickpocket.locks.LockInterface;
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
+import timber.log.Timber;
+
 public class CodeBreakerPresenter implements CodeBreakerContract.Presenter {
+
     private int position;
-    private int numberCorrect;
-    private int numberInAnswer;
-    private List<String> secretCombination;
     private List<String> guessCombination;
     private List<CodeBreakerGuess> codeBreakerGuessList;
+    private LockInterface lockInterface;
 
     private CodeBreakerContract.View view;
 
-    CodeBreakerPresenter() {
-        secretCombination = new ArrayList<>();
+    CodeBreakerPresenter(CodeBreakerActivity.CODE_BREAKER_MODE codeBreakerMode) {
         guessCombination = new ArrayList<>();
         codeBreakerGuessList = new ArrayList<>();
-        secretCombination.add("1");
-        secretCombination.add("2");
-        secretCombination.add("3");
-        secretCombination.add("4");
+
         guessCombination.add("");
         guessCombination.add("");
         guessCombination.add("");
         guessCombination.add("");
+        lockInterface = codeBreakerMode.createLock();
     }
 
     public List<CodeBreakerGuess> getCodeBreakerGuessList() {
@@ -62,71 +66,29 @@ public class CodeBreakerPresenter implements CodeBreakerContract.Presenter {
 
     @Override
     public void onCheckAnswerClicked() {
-        numberCorrect = 0;
-        numberInAnswer = 0;
         view.lock();
         countNearMatches();
     }
 
-    private void showUnlock() {
-        view.unlock();
-    }
-
-    // guess: "2 2 1 1"
-    // actual: "1 1 1 2"
-    // result: G N N X
     private void countNearMatches() {
-        ArrayList<String> remainingGuesses = new ArrayList<>();
-        remainingGuesses.addAll(guessCombination);
+        Observable<LockResultContainer> answerMap = lockInterface.checkAnswer(guessCombination);
 
-        ArrayList<String> remainingSecretCombination = new ArrayList<>();
-        remainingSecretCombination.addAll(secretCombination);
-
-        // First remove exact matches;
-        for (int i = 0; i < remainingSecretCombination.size(); i++) {
-            if (remainingGuesses.get(i).equals(remainingSecretCombination.get(i))) {
-                numberCorrect++;
-                remainingGuesses.set(i, "x");
-                remainingSecretCombination.set(i, "x");
-            }
-        }
-
-        if (numberCorrect != remainingSecretCombination.size()) {
-            for (int i = 0; i < remainingGuesses.size(); i++) {
-                if (remainingGuesses.get(i).equals("x")) {
-                    break;
-                } else {
-                    if (remainingSecretCombination.contains(remainingGuesses.get(i))) {
-                        remainingSecretCombination.set(
-                                remainingSecretCombination.indexOf(remainingGuesses.get(i)), "x");
-                        numberInAnswer++;
-                    }
-                }
-            }
-        } else {
-            showAllCorrect();
-        }
-        storeGuess(guessCombination, numberCorrect, numberInAnswer);
-        clearGuessesIfCorrect(numberCorrect);
-        setAnswerHints();
+        answerMap.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).
+                subscribe(this::showResult, throwable -> {
+                    Timber.e("Error fetching data %s: ", throwable.getMessage());
+                });
     }
 
-    private void showAllCorrect() {
-        view.showAllCorrect();
-    }
-
-    private void setAnswerHints() {
-        view.setNumberCorrect(numberCorrect, numberInAnswer);
-        if (numberCorrect == 4) {
-            showUnlock();
-        }
-    }
-
-    private void clearGuessesIfCorrect(int numCorrect) {
-        if (numCorrect == 4) {
+    private void showResult(LockResultContainer success) {
+        Result result = success.getResult();
+        view.setNumberCorrect(result.getCorrect(), result.getClose());
+        storeGuess(guessCombination, result.getCorrect(), result.getClose());
+        if (result.getClose() == guessCombination.size()) {
+            view.unlock();
             codeBreakerGuessList.clear();
         }
     }
+
     private void storeGuess(List<String> guess, int numberCorrect, int numberInAnswer) {
         List guessCopy = (List) ((ArrayList<String>) guess).clone();
         codeBreakerGuessList.add(new CodeBreakerGuess(guessCopy, numberCorrect, numberInAnswer));

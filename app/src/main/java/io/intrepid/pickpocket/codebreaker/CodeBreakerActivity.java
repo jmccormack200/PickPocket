@@ -17,10 +17,18 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.intrepid.pickpocket.R;
+import io.intrepid.pickpocket.locks.LocalLock;
+import io.intrepid.pickpocket.locks.LockInterface;
+import io.intrepid.pickpocket.locks.OnlineLock;
 import io.intrepid.pickpocket.historydrawer.ViewAnimator;
 import io.intrepid.pickpocket.widget.answerboxes.AnswerBoxView;
 
+import static io.intrepid.pickpocket.codebreaker.CodeBreakerActivity.CODE_BREAKER_MODE.LOCAL;
+import static io.intrepid.pickpocket.codebreaker.CodeBreakerActivity.CODE_BREAKER_MODE.ONLINE;
+
 public class CodeBreakerActivity extends AppCompatActivity implements CodeBreakerContract.View, ViewAnimator.ViewAnimatorListener {
+
+    private static String ONLINE_MODE_EXTRA = "ONLINE_MODE_EXTRA";
     @BindView(R.id.guess_digit_one)
     TextView guessDigitOne;
     @BindView(R.id.guess_digit_two)
@@ -41,8 +49,16 @@ public class CodeBreakerActivity extends AppCompatActivity implements CodeBreake
     private CodeBreakerContract.Presenter presenter;
     private ViewAnimator viewAnimator;
 
-    public static Intent makeIntent(Context context) {
-        return new Intent(context, CodeBreakerActivity.class);
+    public static Intent makeLocalIntent(Context context) {
+        Intent intent = new Intent(context, CodeBreakerActivity.class);
+        intent.putExtra(ONLINE_MODE_EXTRA, false);
+        return intent;
+    }
+
+    public static Intent makeOnlineIntent(Context context){
+        Intent intent = new Intent(context, CodeBreakerActivity.class);
+        intent.putExtra(ONLINE_MODE_EXTRA, true);
+        return intent;
     }
 
     @Override
@@ -51,7 +67,10 @@ public class CodeBreakerActivity extends AppCompatActivity implements CodeBreake
         setContentView(R.layout.activity_code_breaker);
         ButterKnife.bind(this);
 
-        presenter = new CodeBreakerPresenter();
+        Intent intent = getIntent();
+        boolean online_mode = intent.getBooleanExtra(ONLINE_MODE_EXTRA, false);
+        CODE_BREAKER_MODE codeBreakerMode = (online_mode) ? ONLINE : LOCAL;
+        presenter = new CodeBreakerPresenter(codeBreakerMode);
         presenter.setView(this);
         drawerLayout.setScrimColor(ContextCompat.getColor(this, R.color.translucent_black));
         lockIcon.setOnClickListener(new View.OnClickListener() {
@@ -105,12 +124,7 @@ public class CodeBreakerActivity extends AppCompatActivity implements CodeBreake
         answerBoxView.showAllCorrect();
     }
 
-    @OnClick({ R.id.button_one,
-               R.id.button_two,
-               R.id.button_three,
-               R.id.button_four,
-               R.id.button_five,
-               R.id.button_six })
+    @OnClick({ R.id.button_one, R.id.button_two, R.id.button_three, R.id.button_four, R.id.button_five, R.id.button_six })
     public void onDigitClicked(View view) {
         Button button = (Button) view;
         presenter.buttonClicked(button.getText().toString());
@@ -131,6 +145,25 @@ public class CodeBreakerActivity extends AppCompatActivity implements CodeBreake
         if (linearLayout != null) {
             linearLayout.removeAllViews();
             linearLayout.invalidate();
+        }
+    }
+
+    public enum CODE_BREAKER_MODE {
+        LOCAL {
+            @Override
+            public LockInterface createLock() {
+                return new LocalLock();
+            }
+        },
+        ONLINE {
+            @Override
+            public LockInterface createLock() {
+                return new OnlineLock();
+            }
+        };
+
+        public LockInterface createLock() {
+            throw new RuntimeException();
         }
     }
 }
