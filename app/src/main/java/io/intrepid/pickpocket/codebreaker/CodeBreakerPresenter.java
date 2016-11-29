@@ -13,11 +13,7 @@ import timber.log.Timber;
 
 public class CodeBreakerPresenter implements CodeBreakerContract.Presenter {
 
-    private ArrayList<String> guessCombination;
     private int position;
-    private int numberCorrect;
-    private int numberInAnswer;
-    private List<String> secretCombination;
     private List<String> guessCombination;
     private List<CodeBreakerGuess> codeBreakerGuessList;
     private LockInterface lockInterface;
@@ -86,7 +82,7 @@ public class CodeBreakerPresenter implements CodeBreakerContract.Presenter {
     private void showResult(LockResultContainer success) {
         Result result = success.getResult();
         view.setNumberCorrect(result.getCorrect(), result.getClose());
-        storeGuess(guessCombination, success.getCorrect(), success.getClose());
+        storeGuess(guessCombination, result.getCorrect(), result.getClose());
         if (result.getClose() == guessCombination.size()) {
             view.unlock();
             codeBreakerGuessList.clear();
