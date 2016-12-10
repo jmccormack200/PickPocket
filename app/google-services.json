@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1037789732266",
+    "firebase_url": "https://pickpocket-73d9f.firebaseio.com",
+    "project_id": "pickpocket-73d9f",
+    "storage_bucket": "pickpocket-73d9f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1037789732266:android:a2a49a60db1b858d",
+        "android_client_info": {
+          "package_name": "io.intrepid.pickpocket"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1037789732266-s84tgl4joo3809utf919loj1m3v71o0d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBsKifJGrqrdzWgJ4-G9Aa-vfU8kMwZtWg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

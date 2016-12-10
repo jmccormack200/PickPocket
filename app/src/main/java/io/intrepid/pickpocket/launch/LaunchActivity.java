@@ -2,6 +2,9 @@ package io.intrepid.pickpocket.launch;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -18,6 +21,10 @@ public class LaunchActivity extends AppCompatActivity implements LaunchContract.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launch);
         ButterKnife.bind(this);
+
+        Log.e("----","-----");
+        Log.e("---", FirebaseInstanceId.getInstance().getToken());
+        Log.e("----","-----");
 
         presenter = new LaunchPresenter();
         presenter.setView(this);
