@@ -2,7 +2,9 @@ package io.intrepid.pickpocket.launch;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Button;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.intrepid.pickpocket.R;
@@ -11,25 +13,26 @@ import io.intrepid.pickpocket.codebreaker.CodeBreakerActivity;
 
 public class LaunchActivity extends AppCompatActivity implements LaunchContract.View {
 
+    @BindView(R.id.classic_mode)
+    Button button;
     private LaunchContract.Presenter presenter;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launch);
         ButterKnife.bind(this);
-
         presenter = new LaunchPresenter();
         presenter.setView(this);
     }
 
     @OnClick(R.id.classic_mode)
-    public void classicModeClicked(){
+    public void classicModeClicked() {
         presenter.classicModeClicked();
     }
 
     @OnClick(R.id.code_breaking_mode)
-    public void codeBreakingModeClicked(){
+    public void codeBreakingModeClicked() {
         presenter.codeBreakingModeClicked();
     }
 
@@ -49,7 +52,7 @@ public class LaunchActivity extends AppCompatActivity implements LaunchContract.
     }
 
     @OnClick(R.id.online_mode)
-    public void onlineModeClicked(){
+    public void onlineModeClicked() {
         presenter.onlineModeClicked();
     }
 }

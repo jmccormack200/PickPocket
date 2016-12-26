@@ -25,11 +25,12 @@ android {
 }
 
 dependencies {
+    compile files('libs/processor.jar')
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:25.0.0'
+    compile 'com.android.support:appcompat-v7:25.1.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.0-beta3'
     testCompile 'junit:junit:4.12'
 
@@ -53,4 +54,13 @@ dependencies {
     apply plugin: 'me.tatarka.retrolambda'
 
     compile 'com.jakewharton.timber:timber:4.3.1'
+    apply plugin: 'com.neenbedankt.android-apt'
 }
+
+task processorTask(type: Exec) {
+    commandLine 'cp', '../processor/build/libs/processor.jar', 'libs/'
+}
+
+processorTask.dependsOn(':processor:build')
+preBuild.dependsOn(processorTask)
+

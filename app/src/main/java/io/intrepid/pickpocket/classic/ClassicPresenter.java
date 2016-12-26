@@ -1,5 +1,8 @@
 package io.intrepid.pickpocket.classic;
 
+import com.example.CustomAnnotation;
+import com.example.annotationprocessor.generated.GeneratedClass;
+
 import java.util.ArrayList;
 
 public class ClassicPresenter implements ClassicContract.Presenter {
@@ -16,11 +19,13 @@ public class ClassicPresenter implements ClassicContract.Presenter {
         position = 0;
         locked = true;
         programMode = false;
+        getPositionOne();
         currentCombination = new ArrayList<>();
         currentCombination.add("1");
         currentCombination.add("2");
         currentCombination.add("3");
         currentCombination.add("4");
+        getPositionOne();
     }
 
     @Override
@@ -41,7 +46,7 @@ public class ClassicPresenter implements ClassicContract.Presenter {
         programMode = checked;
         position = 0;
 
-        if (programMode){
+        if (programMode) {
             newCombination = new ArrayList<>();
         } else {
             view.lock();
@@ -51,6 +56,12 @@ public class ClassicPresenter implements ClassicContract.Presenter {
                 currentCombination.addAll(newCombination);
             }
         }
+    }
+
+    @CustomAnnotation(method = "currentCombination.get(0)")
+    public String getPositionOne() {
+        GeneratedClass generatedClass = new GeneratedClass();
+        return (String) generatedClass.getMessage(currentCombination, "Hi");
     }
 
     private void checkDigits(String digit) {
