@@ -19,13 +19,13 @@ public class ClassicPresenter implements ClassicContract.Presenter {
         position = 0;
         locked = true;
         programMode = false;
-        getPositionOne();
+        String one = getPositionOne();
         currentCombination = new ArrayList<>();
         currentCombination.add("1");
         currentCombination.add("2");
         currentCombination.add("3");
         currentCombination.add("4");
-        getPositionOne();
+        String two = getPositionOne();
     }
 
     @Override

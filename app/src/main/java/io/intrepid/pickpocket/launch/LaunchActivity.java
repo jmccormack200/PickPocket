@@ -24,6 +24,8 @@ public class LaunchActivity extends AppCompatActivity implements LaunchContract.
         ButterKnife.bind(this);
         presenter = new LaunchPresenter();
         presenter.setView(this);
+        Button button = (Button) findViewById(R.id.classic_mode);
+        button.setOnClickListener(v -> presenter.classicModeClicked());
     }
 
     @OnClick(R.id.classic_mode)
